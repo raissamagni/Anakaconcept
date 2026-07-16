@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ANAKÁ Concept: beleza, cuidado e uma experiência feita para você em Mauá, SP.">
+    <title>ANAKÁ Concept | Luxo Minimalista</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --marrom-quente: #8A5A3B;
+            --bege-claro: #EDE6DC;
+            --areia: #D8C8B4;
+            --off-white: #F5F1EA;
+            --marrom-escuro: #5A3A2A;
+            --branco: #FFFFFF;
+            --font-principal: 'Montserrat', sans-serif;
+            --raio-pequeno: 16px;
+            --raio-medio: 24px;
+            --raio-grande: 34px;
+            --raio-pilula: 999px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: var(--font-principal);
+            background-color: var(--off-white);
+            color: var(--marrom-escuro);
+            overflow-x: hidden;
+        }
+
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 55px;
+            padding: 10px 5%;
+            background: rgba(245, 241, 234, 0.82);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(216, 200, 180, 0.35);
+            border-radius: 0 0 var(--raio-medio) var(--raio-medio);
+            z-index: 1000;
+        }
+
+        .logo-header {
+            height: 30px;
+            width: auto;
+            display: block;
+        }
+
+        .menu-btn {
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--marrom-quente);
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            border-radius: 50%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            background-color: rgba(138, 90, 59, 0.08);
+        }
+
+        .menu-btn:active {
+            transform: scale(0.92);
+        }
+
+        .menu-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(45, 28, 20, 0.34);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 2100;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+
+        .menu-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: min(340px, 90vw);
+            height: 100vh;
+            height: 100dvh;
+            background: var(--off-white);
+            z-index: 2101;
+            transform: translateX(105%);
+            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+            padding: 78px 32px 32px;
+            overflow-y: auto;
+            box-shadow: -15px 0 40px rgba(90, 58, 42, 0.12);
+            border-radius: var(--raio-grande) 0 0 var(--raio-grande);
+        }
+
+        .menu-overlay.active {
+            transform: translateX(0);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 50%;
+            background: rgba(138, 90, 59, 0.07);
+            color: var(--marrom-escuro);
+            font-family: Arial, sans-serif;
+            font-size: 30px;
+            font-weight: 200;
+            line-height: 1;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .close-menu:hover {
+            background: rgba(138, 90, 59, 0.14);
+            transform: rotate(5deg);
+        }
+
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .menu-overlay a,
+        .procedure-toggle {
+            width: 100%;
+            min-height: 42px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--marrom-escuro);
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 2px;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            font-family: var(--font-principal);
+            padding: 10px 4px;
+            transition: color 0.25s ease, padding-left 0.25s ease;
+        }
+
+        .menu-overlay a:hover,
+        .procedure-toggle:hover {
+            color: var(--marrom-quente);
+            padding-left: 9px;
+        }
+
+        .procedure-toggle {
+            justify-content: space-between;
+        }
+
+        .procedure-toggle i {
+            font-size: 9px;
+            transition: transform 0.35s ease;
+        }
+
+        .procedure-toggle[aria-expanded="true"] i {
+            transform: rotate(180deg);
+        }
+
+        .proc-content {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.45s ease, opacity 0.3s ease, padding 0.45s ease;
+            padding: 0 5px;
+        }
+
+        .proc-content.open {
+            max-height: 520px;
+            opacity: 1;
+            padding: 8px 5px 14px;
+        }
+
+        .proc-content p {
+            font-size: 10px;
+            line-height: 2;
+            color: var(--marrom-quente);
+            font-weight: 300;
+        }
+
+        .proc-content .menu-details-link {
+            min-height: auto;
+            margin-top: 8px;
+            padding: 8px 0;
+            font-size: 9px;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .menu-cta {
+            justify-content: center;
+            margin-top: 18px;
+            padding: 15px 14px !important;
+            border: 1px solid var(--marrom-escuro);
+            border-radius: var(--raio-pilula);
+            text-align: center !important;
+        }
+
+        .menu-cta:hover {
+            padding-left: 14px !important;
+            color: var(--off-white) !important;
+            background: var(--marrom-escuro);
+        }
+
+        section {
+            position: relative;
+            padding: 58px 8%;
+        }
+
+        .section-title {
+            display: block;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            color: var(--marrom-quente);
+            text-align: center;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        /* PRIMEIRA SEÇÃO */
+        .hero-section {
+            min-height: 100vh;
+            min-height: 100svh;
+            padding: 125px 8% 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            isolation: isolate;
+            overflow: hidden;
+        }
+
+        .hero-watermark {
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(900px, 105vw);
+            height: min(560px, 70vh);
+            background: url('estética.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.055;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-logo {
+            width: min(230px, 66vw);
+            height: auto;
+            display: block;
+            margin-bottom: 28px;
+            filter: drop-shadow(0 6px 18px rgba(90, 58, 42, 0.06));
+        }
+
+        .btn-premium {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 13px 28px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.48);
+            color: var(--marrom-escuro);
+            border: 1px solid rgba(90, 58, 42, 0.55);
+            border-radius: var(--raio-pilula);
+            font-family: var(--font-principal);
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2.2px;
+            white-space: nowrap;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 8px 22px rgba(90, 58, 42, 0.07);
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+            transition: color 0.45s ease, background-color 0.45s ease, transform 0.25s ease, box-shadow 0.45s ease;
+        }
+
+        .btn-premium:hover {
+            color: var(--off-white);
+            background-color: var(--marrom-escuro);
+            box-shadow: 0 10px 24px rgba(90, 58, 42, 0.16);
+            transform: translateY(-2px);
+        }
+
+        .btn-premium:active {
+            transform: translateY(0) scale(0.97);
+        }
+
+        /* CARROSSÉIS: AUTOMÁTICOS, ARRASTÁVEIS E CONTROLADOS POR SETAS */
+        .carousel-shell {
+            position: relative;
+            width: 100%;
+        }
+
+        .carousel-shell + .carousel-shell {
+            margin-top: 20px;
+        }
+
+        .auto-carousel {
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: auto;
+            cursor: grab;
+            touch-action: pan-x pan-y;
+            overscroll-behavior-inline: contain;
+            border-radius: var(--raio-medio);
+        }
+
+        .auto-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .auto-carousel.dragging {
+            cursor: grabbing;
+            scroll-behavior: auto;
+            user-select: none;
+        }
+
+        .auto-track {
+            display: flex;
+            width: max-content;
+        }
+
+        .portfolio-item {
+            width: 200px;
+            height: 300px;
+            flex-shrink: 0;
+            padding: 0 5px;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--raio-medio);
+            pointer-events: none;
+            -webkit-user-drag: none;
+            user-select: none;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            z-index: 5;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(138, 90, 59, 0.18);
+            border-radius: 50%;
+            background: rgba(245, 241, 234, 0.9);
+            color: var(--marrom-quente);
+            box-shadow: 0 6px 18px rgba(90, 58, 42, 0.17);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            cursor: pointer;
+            transform: translateY(-50%);
+            transition: transform 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
+        }
+
+        .carousel-arrow:hover {
+            background: var(--off-white);
+            transform: translateY(-50%) scale(1.06);
+        }
+
+        .carousel-arrow:active {
+            transform: translateY(-50%) scale(0.94);
+        }
+
+        .carousel-arrow.left {
+            left: 9px;
+        }
+
+        .carousel-arrow.right {
+            right: 9px;
+        }
+
+        .carousel-arrow:disabled {
+            opacity: 0.3;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .carousel-arrow i {
+            font-size: 12px;
+        }
+
+        #trabalhos {
+            padding-top: 48px;
+            padding-bottom: 26px;
+        }
+
+        /* PROCEDIMENTOS */
+        .procedimentos-section {
+            padding-top: 50px;
+            padding-bottom: 54px;
+            background: var(--bege-claro);
+        }
+
+        .procedimentos-intro,
+        .ambiente-intro {
+            max-width: 660px;
+            margin: -10px auto 30px;
+            text-align: center;
+            color: var(--marrom-escuro);
+            font-size: 12px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .procedimentos-grid {
+            max-width: 1050px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .procedimento-card {
+            min-height: 155px;
+            padding: 26px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.52);
+            border: 1px solid rgba(138, 90, 59, 0.13);
+            border-radius: var(--raio-medio);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease;
+        }
+
+        .procedimento-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 28px rgba(90, 58, 42, 0.08);
+        }
+
+        .procedimento-card h3 {
+            margin-bottom: 10px;
+            color: var(--marrom-quente);
+            font-size: 11px;
+            font-weight: 400;
+            line-height: 1.5;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+        }
+
+        .procedimento-card p {
+            color: var(--marrom-escuro);
+            font-size: 11px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .procedimentos-cta {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        /* CARROSSEL ORIGINAL DO AMBIENTE — FUNCIONAMENTO PRESERVADO */
+        #spa {
+            padding-top: 42px;
+            padding-bottom: 52px;
+        }
+
+        .ambiente-intro {
+            margin-bottom: 14px;
+        }
+
+        .spa-hybrid-container {
+            width: 100%;
+            overflow-x: auto;
+            display: flex;
+            gap: 15px;
+            padding: 20px 0;
+            scrollbar-width: none;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            touch-action: pan-x pan-y;
+            overscroll-behavior-inline: contain;
+            border-radius: var(--raio-grande);
+        }
+
+        .spa-hybrid-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .spa-card {
+            flex: 0 0 300px;
+            height: 400px;
+            scroll-snap-align: center;
+            border-radius: var(--raio-grande);
+            overflow: hidden;
+        }
+
+        .spa-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* DEPOIMENTOS ORIGINAIS — FUNCIONAMENTO PRESERVADO */
+        .avaliacoes-grid {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px 0 30px 0;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            touch-action: pan-x pan-y;
+            overscroll-behavior-inline: contain;
+            border-radius: var(--raio-medio);
+        }
+
+        .avaliacoes-grid::-webkit-scrollbar {
+            display: none;
+        }
+
+        .review-box {
+            flex: 0 0 350px;
+            background: white;
+            padding: 35px;
+            border-radius: var(--raio-medio);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            scroll-snap-align: center;
+        }
+
+        .stars {
+            color: #FFD700;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .review-text {
+            font-size: 12px;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .review-author {
+            display: block;
+            margin-top: 20px;
+            font-size: 10px;
+            font-weight: 400;
+            text-transform: uppercase;
+            color: var(--marrom-quente);
+            letter-spacing: 1px;
+        }
+
+        .video-section {
+            text-align: center;
+            padding: 48px 8%;
+        }
+
+        .video-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: var(--raio-grande);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: #000;
+        }
+
+        video {
+            width: 100%;
+            display: block;
+        }
+
+        .horario-section {
+            text-align: center;
+            padding: 36px 8%;
+            background-color: var(--off-white);
+        }
+
+        .horario-box {
+            display: inline-block;
+            padding: 20px 40px;
+            border: 0.5px solid var(--areia);
+            border-radius: 50px;
+        }
+
+        .horario-box p {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.6;
+            color: var(--marrom-escuro);
+        }
+
+        .localizacao-section {
+            text-align: center;
+            padding: 52px 8%;
+            background-color: var(--off-white);
+            border-top: 1px solid var(--areia);
+        }
+
+        .endereco-texto {
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--marrom-escuro);
+            margin-bottom: 26px;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        .mapa-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            height: clamp(290px, 42vw, 430px);
+            margin: 0 auto 26px;
+            overflow: hidden;
+            border: 1px solid rgba(138, 90, 59, 0.14);
+            border-radius: var(--raio-grande);
+            background: var(--bege-claro);
+            box-shadow: 0 12px 34px rgba(90, 58, 42, 0.11);
+        }
+
+        .mapa-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border: 0;
+        }
+
+        .btn-rota {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 30px;
+            background-color: var(--marrom-escuro);
+            color: var(--off-white);
+            text-decoration: none;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: var(--raio-pilula);
+            transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-rota:hover {
+            opacity: 0.94;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(90, 58, 42, 0.18);
+        }
+
+        /* BOTÕES FLUTUANTES */
+        .float-actions {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 950;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .float-btn {
+            min-width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 19px;
+            text-decoration: none;
+            box-shadow: 0 5px 16px rgba(0,0,0,0.18);
+            transition: transform 0.3s ease, opacity 0.3s ease, max-height 0.3s ease, margin 0.3s ease;
+        }
+
+        .float-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+        }
+
+        .btn-whatsapp {
+            width: auto;
+            min-width: 118px;
+            padding: 0 16px;
+            gap: 8px;
+            border-radius: 24px;
+            background-color: #25D366;
+            font-size: 18px;
+        }
+
+        .btn-whatsapp span {
+            font-family: var(--font-principal);
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+        }
+
+        .btn-tiktok {
+            background-color: #000;
+        }
+
+        .btn-insta {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .social-float {
+            max-height: 44px;
+            overflow: hidden;
+        }
+
+        .float-actions.compact .social-float {
+            max-height: 0;
+            margin: -5px 0;
+            opacity: 0;
+            transform: translateY(12px) scale(0.8);
+            pointer-events: none;
+        }
+
+        .float-actions.footer-visible {
+            opacity: 0;
+            transform: translateY(18px);
+            pointer-events: none;
+        }
+
+        footer {
+            background: var(--marrom-escuro);
+            color: var(--off-white);
+            text-align: center;
+            padding: 42px 10% 46px;
+            border-radius: var(--raio-grande) var(--raio-grande) 0 0;
+        }
+
+        .footer-logo {
+            height: 28px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: 0.82;
+            margin-bottom: 14px;
+        }
+
+        .footer-copy {
+            font-size: 9px;
+            line-height: 1.7;
+            color: var(--bege-claro);
+            opacity: 0.82;
+        }
+
+        .dev-creditos {
+            display: inline-block;
+            margin-top: 16px;
+            padding-bottom: 3px;
+            font-size: 9px;
+            color: var(--off-white);
+            opacity: 0.9;
+            text-decoration: none;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(245, 241, 234, 0.45);
+            transition: opacity 0.3s ease, border-color 0.3s ease;
+        }
+
+        .dev-creditos:hover {
+            opacity: 1;
+            border-color: var(--off-white);
+        }
+
+        @media (max-width: 900px) {
+            .procedimentos-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding-left: 6%;
+                padding-right: 6%;
+            }
+
+            .hero-section {
+                min-height: 100vh;
+                min-height: 100svh;
+                padding-top: 112px;
+                padding-bottom: 58px;
+            }
+
+            .hero-watermark {
+                width: 118vw;
+                height: 440px;
+                opacity: 0.045;
+            }
+
+            .hero-logo {
+                width: min(205px, 64vw);
+                margin-bottom: 24px;
+            }
+
+            #trabalhos {
+                padding-top: 38px;
+                padding-bottom: 20px;
+            }
+
+            .procedimentos-section {
+                padding-top: 42px;
+                padding-bottom: 46px;
+            }
+
+            #spa {
+                padding-top: 36px;
+                padding-bottom: 44px;
+            }
+
+            .procedimentos-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .procedimento-card {
+                min-height: 0;
+                padding: 22px 20px;
+            }
+
+            .procedimentos-intro,
+            .ambiente-intro {
+                font-size: 11px;
+                line-height: 1.75;
+            }
+
+            .review-box {
+                flex: 0 0 85%;
+            }
+
+            .spa-card {
+                flex: 0 0 80%;
+                height: 350px;
+            }
+
+            .video-section,
+            .localizacao-section {
+                padding-left: 6%;
+                padding-right: 6%;
+            }
+
+            .mapa-wrapper {
+                height: 330px;
+                border-radius: var(--raio-medio);
+            }
+
+            .float-actions {
+                right: 12px;
+                bottom: 12px;
+            }
+
+            .btn-whatsapp {
+                min-width: 108px;
+                height: 42px;
+                padding: 0 14px;
+            }
+
+            .horario-box {
+                padding: 18px 24px;
+            }
+
+            .carousel-arrow {
+                width: 38px;
+                height: 38px;
+            }
+
+            .carousel-arrow.left {
+                left: 7px;
+            }
+
+            .carousel-arrow.right {
+                right: 7px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .hero-section {
+                min-height: 100vh;
+                min-height: 100svh;
+                padding-top: 102px;
+                padding-bottom: 50px;
+            }
+
+            .hero-logo {
+                width: 180px;
+                margin-bottom: 20px;
+            }
+
+            .btn-premium {
+                padding: 13px 23px;
+                letter-spacing: 2.2px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .menu-overlay,
+            .menu-backdrop,
+            .btn-premium,
+            .float-actions,
+            .float-btn,
+            .procedimento-card {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="float-actions" id="floatActions" aria-label="Atalhos de contato">
+        <a href="https://www.instagram.com/anaka.concept?igsh=MWRmazM3eWswYzZwaw==" class="float-btn btn-insta social-float" target="_blank" rel="noopener noreferrer" aria-label="Abrir o Instagram da ANAKÁ Concept">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.tiktok.com/@anakaconcept?_r=1&amp;_t=ZS-958PBllKzUi" class="float-btn btn-tiktok social-float" target="_blank" rel="noopener noreferrer" aria-label="Abrir o TikTok da ANAKÁ Concept">
+            <i class="fab fa-tiktok" aria-hidden="true"></i>
+        </a>
+        <a href="https://wa.me/5511953413977?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20ANAK%C3%81%20Concept%20e%20gostaria%20de%20agendar%20uma%20experi%C3%AAncia." class="float-btn btn-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Agendar pelo WhatsApp">
+            <i class="fab fa-whatsapp" aria-hidden="true"></i>
+            <span>Agendar</span>
+        </a>
+    </div>
+
+    <header>
+        <img src="logo.png" class="logo-header" alt="ANAKÁ Concept">
+        <button class="menu-btn" id="openMenuButton" type="button" aria-label="Abrir menu" aria-controls="menuOverlay" aria-expanded="false">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+    </header>
+
+    <div class="menu-backdrop" id="menuBackdrop" aria-hidden="true"></div>
+
+    <nav class="menu-overlay" id="menuOverlay" aria-label="Menu principal" aria-hidden="true">
+        <button class="close-menu" id="closeMenuButton" type="button" aria-label="Fechar menu">×</button>
+
+        <div class="menu-links">
+            <a href="#hero">Início</a>
+            <a href="#trabalhos">Portfólio</a>
+            <a href="#spa">O Ambiente</a>
+            <a href="#avaliacoes">Experiências</a>
+            <a href="#localizacao">Onde nos Encontrar</a>
+
+            <button class="procedure-toggle" id="procedureToggle" type="button" aria-expanded="false" aria-controls="procMenu">
+                <span>Procedimentos</span>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+
+            <div class="proc-content" id="procMenu">
+                <p>
+                    • Coloração e Mechas (Carro Chefe)<br>
+                    • Morena Iluminada<br>
+                    • Mechas com Abertura de Fundo<br>
+                    • Corte com Finalização<br>
+                    • Manicure e Pedicure<br>
+                    • Maquiagem<br>
+                    • Design de Sobrancelhas
+                </p>
+                <a href="#procedimentos" class="menu-details-link">Conhecer os procedimentos</a>
+            </div>
+
+            <a href="https://wa.me/5511953413977?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20ANAK%C3%81%20Concept%20e%20gostaria%20de%20agendar%20uma%20experi%C3%AAncia." class="menu-cta" target="_blank" rel="noopener noreferrer">Agendar experiência</a>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="hero-watermark" aria-hidden="true"></div>
+            <div class="hero-content">
+                <img src="logo.png" class="hero-logo" alt="ANAKÁ Concept">
+                <a href="https://wa.me/5511953413977?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20ANAK%C3%81%20Concept%20e%20gostaria%20de%20agendar%20uma%20experi%C3%AAncia." class="btn-premium" target="_blank" rel="noopener noreferrer">Agendar Experiência</a>
+            </div>
+        </section>
+
+        <section id="trabalhos">
+            <span class="section-title">Nossas Técnicas</span>
+
+            <div class="carousel-shell">
+                <button class="carousel-arrow left" type="button" data-carousel="galeriaLoiras" data-direction="-1" aria-label="Ver fotos anteriores de técnicas para cabelos loiros">
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                </button>
+
+                <div class="auto-carousel" id="galeriaLoiras" data-auto-direction="1" tabindex="0" aria-label="Galeria de técnicas para cabelos loiros. Arraste ou use as setas para navegar.">
+                    <div class="auto-track">
+                        <div class="portfolio-item"><img src="loira1.png"></div><div class="portfolio-item"><img src="loira2.png"></div><div class="portfolio-item"><img src="loira3.png"></div><div class="portfolio-item"><img src="loira4.png"></div><div class="portfolio-item"><img src="loira5.png"></div><div class="portfolio-item"><img src="loira6.png"></div><div class="portfolio-item"><img src="loira7.png"></div><div class="portfolio-item"><img src="loira8.png"></div>
+                    </div>
+                </div>
+
+                <button class="carousel-arrow right" type="button" data-carousel="galeriaLoiras" data-direction="1" aria-label="Ver mais fotos de técnicas para cabelos loiros">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <div class="carousel-shell">
+                <button class="carousel-arrow left" type="button" data-carousel="galeriaMorenas" data-direction="-1" aria-label="Ver fotos anteriores de técnicas para cabelos morenos">
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                </button>
+
+                <div class="auto-carousel" id="galeriaMorenas" data-auto-direction="-1" tabindex="0" aria-label="Galeria de técnicas para cabelos morenos. Arraste ou use as setas para navegar.">
+                    <div class="auto-track">
+                        <div class="portfolio-item"><img src="morena1.png"></div><div class="portfolio-item"><img src="morena2.png"></div><div class="portfolio-item"><img src="morena3.png"></div><div class="portfolio-item"><img src="morena4.png"></div><div class="portfolio-item"><img src="morena5.png"></div><div class="portfolio-item"><img src="morena6.png"></div><div class="portfolio-item"><img src="morena7.png"></div>
+                    </div>
+                </div>
+
+                <button class="carousel-arrow right" type="button" data-carousel="galeriaMorenas" data-direction="1" aria-label="Ver mais fotos de técnicas para cabelos morenos">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </section>
+
+        <section id="procedimentos" class="procedimentos-section">
+            <span class="section-title">Nossos Procedimentos</span>
+            <p class="procedimentos-intro">Cuidado personalizado, técnica e atenção aos detalhes para valorizar a sua beleza em cada experiência.</p>
+
+            <div class="procedimentos-grid">
+                <article class="procedimento-card">
+                    <h3>Coloração e Mechas</h3>
+                    <p>Técnicas personalizadas para iluminar os fios e criar um resultado elegante e saudável.</p>
+                </article>
+
+                <article class="procedimento-card">
+                    <h3>Morena Iluminada</h3>
+                    <p>Luz, dimensão e naturalidade para realçar os tons do cabelo com suavidade.</p>
+                </article>
+
+                <article class="procedimento-card">
+                    <h3>Mechas com Abertura de Fundo</h3>
+                    <p>Clareamento planejado de acordo com o fundo do cabelo e o resultado desejado.</p>
+                </article>
+
+                <article class="procedimento-card">
+                    <h3>Corte com Finalização</h3>
+                    <p>Corte pensado para o seu estilo, com acabamento que valoriza forma e movimento.</p>
+                </article>
+
+                <article class="procedimento-card">
+                    <h3>Manicure e Pedicure</h3>
+                    <p>Cuidado completo para mãos e pés, com beleza, conforto e acabamento delicado.</p>
+                </article>
+
+                <article class="procedimento-card">
+                    <h3>Maquiagem</h3>
+                    <p>Produções que respeitam sua personalidade, do visual leve às ocasiões especiais.</p>
+                </article>
+
+                <article class="procedimento-card">
+                    <h3>Design de Sobrancelhas</h3>
+                    <p>Desenho harmonioso e personalizado para destacar a expressão do seu rosto.</p>
+                </article>
+            </div>
+
+            <div class="procedimentos-cta">
+                <a href="https://wa.me/5511953413977?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20ANAK%C3%81%20Concept%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20procedimentos." class="btn-premium" target="_blank" rel="noopener noreferrer">Consultar e Agendar</a>
+            </div>
+        </section>
+
+        <section id="spa">
+            <span class="section-title">O Ambiente</span>
+            <p class="ambiente-intro">Um espaço acolhedor e sofisticado, preparado para transformar cada visita em um momento especial de autocuidado.</p>
+
+            <div class="carousel-shell">
+                <button class="carousel-arrow left" type="button" data-carousel="spaSlider" data-direction="-1" aria-label="Ver foto anterior do ambiente">
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                </button>
+
+                <div class="spa-hybrid-container" id="spaSlider" tabindex="0" aria-label="Fotos do ambiente. Arraste ou use as setas para navegar.">
+                    <div class="spa-card"><img src="espaço1.png"></div><div class="spa-card"><img src="espaço2.png"></div><div class="spa-card"><img src="espaço3.png"></div><div class="spa-card"><img src="espaço4.png"></div>
+                </div>
+
+                <button class="carousel-arrow right" type="button" data-carousel="spaSlider" data-direction="1" aria-label="Ver mais fotos do ambiente">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </section>
+
+        <section id="avaliacoes" style="background: var(--bege-claro);">
+            <span class="section-title">Experiências Reais</span>
+
+            <div class="carousel-shell">
+                <button class="carousel-arrow left" type="button" data-carousel="avaliacoesSlider" data-direction="-1" aria-label="Ver depoimento anterior">
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                </button>
+
+                <div class="avaliacoes-grid" id="avaliacoesSlider" tabindex="0" aria-label="Depoimentos de clientes. Arraste ou use as setas para navegar.">
+                    <div class="review-box"><div class="stars">★★★★★</div><p class="review-text">"Qualidade do serviço excelente, clareia os cabelos de maneira muito profissional, oferecendo um excelente resultado. Os cabelos ficam lindos e totalmente saudáveis. Profissionais simpáticas, que fazem com que você se sinta à vontade. Salão com uma excelente infraestrutura. Virei cliente! Super recomendo!"</p><span class="review-author">Marcela Fernandes</span></div>
+                    <div class="review-box"><div class="stars">★★★★★</div><p class="review-text">"Faço meu cabelo com a Katia há mais de 10 anos e não troco por nada! Ela salvou o meu cabelo... Além de ser uma profissional incrível... E ainda nos recebe com tanto carinho e paciência que o salão virou um lugar especial para mim. Não é só sobre cabelo, é sobre confiança, cuidado e amizade."</p><span class="review-author">Beatriz Sátiro</span></div>
+                    <div class="review-box"><div class="stars">★★★★★</div><p class="review-text">"Experiência simplesmente impecável! Desde o atendimento até os mínimos detalhes do espaço, tudo transmite cuidado e profissionalismo. Recomendo de olhos fechados para quem busca mais do que um serviço de beleza: aqui é uma verdadeira experiência de autocuidado e autoestima."</p><span class="review-author">Mariana Gomes</span></div>
+                    <div class="review-box"><div class="stars">★★★★★</div><p class="review-text">"Minha primeira vez no Studio foi ótima, agendei o serviço completo, sobrancelhas, cabelo e unhas. Todos são extremamente atenciosos e em especial agradeço a Anna Mel, responsável pelas makes e sobrancelhas, possui uma mão super leve ao realizar cada etapa do trabalho."</p><span class="review-author">Nicoly Angelo Teixeira</span></div>
+                    <div class="review-box"><div class="stars">★★★★★</div><p class="review-text">"Conheço a muito tempo o trabalho da Katia... Posso dizer que o salão possui um tratamento superior ao da região, sendo muito bem servida e tratada por todos colaboradores. O que me faz ser cliente é o fato de que a profissional Katia estar sempre aprimorando seu trabalho."</p><span class="review-author">Viviane Cruz</span></div>
+                    <div class="review-box"><div class="stars">★★★★★</div><p class="review-text">"Lugar lindo meninas receptivas e profissionais de ponta! Amei minhas unhas a profissional uma linda super simpática e ótima, amei meus cabelos ficou lindo do jeito que eu queria. Parabéns a equipe."</p><span class="review-author">Patrícia Lopes</span></div>
+                    <div class="review-box"><div class="stars">★★★★★</div><p class="review-text">"Eu sou apaixonada por esse salão!!! Atendimento maravilhoso, o ambiente é lindo e conta com uma infraestrutura completa. A Katia embora super jovem, está no ramo a mais de 15 anos!!! Podem confiar de olhos fechados."</p><span class="review-author">Patricia Aires</span></div>
+                    <div class="review-box"><div class="stars">★★★★★</div><p class="review-text">"Experiência incrível! Todas estão de parabéns, desejo muito sucesso. A Katia e sua equipe, transmite uma energia muito boa. Senti segurança em entregar o meu cabelo e saí do salão com a auto estima lá em cima!"</p><span class="review-author">Caroline Novais</span></div>
+                </div>
+
+                <button class="carousel-arrow right" type="button" data-carousel="avaliacoesSlider" data-direction="1" aria-label="Ver mais depoimentos">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </section>
+
+        <section class="video-section">
+            <span class="section-title">Assista nossa Essência</span>
+            <div class="video-wrapper">
+                <video controls playsinline preload="metadata" poster="estética.png">
+                    <source src="vídeo.mp4" type="video/mp4">
+                    Seu navegador não suporta a reprodução deste vídeo.
+                </video>
+            </div>
+        </section>
+
+        <section class="horario-section">
+            <div class="horario-box">
+                <p>Terça a Sábado — 09h às 18h</p>
+            </div>
+        </section>
+
+        <section class="localizacao-section" id="localizacao">
+            <span class="section-title">Onde nos Encontrar</span>
+            <p class="endereco-texto">
+                Rua Campos Sales, 200 — Vila Bocaina<br>
+                Mauá, SP — CEP: 09310-040
+            </p>
+
+            <div class="mapa-wrapper">
+                <iframe
+                    src="https://www.google.com/maps?q=Rua%20Campos%20Sales%2C%20200%2C%20Vila%20Bocaina%2C%20Mau%C3%A1%2C%20SP%2C%2009310-040&amp;output=embed"
+                    title="Mapa da ANAKÁ Concept na Rua Campos Sales, 200, em Mauá"
+                    loading="lazy"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Rua+Campos+Sales+200+Maua+SP" target="_blank" rel="noopener noreferrer" class="btn-rota">
+                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                Traçar Rota no Maps
+            </a>
+        </section>
+    </main>
+
+    <footer id="rodape">
+        <img src="logo.png" class="footer-logo" alt="ANAKÁ Concept">
+        <p class="footer-copy">© 2026 ANAKÁ CONCEPT. Todos os direitos reservados.</p>
+        <a href="https://www.instagram.com/a_magnii" target="_blank" rel="noopener noreferrer" class="dev-creditos">Desenvolvido por @a_magnii</a>
+    </footer>
+
+    <script>
+        const menuOverlay = document.getElementById('menuOverlay');
+        const menuBackdrop = document.getElementById('menuBackdrop');
+        const openMenuButton = document.getElementById('openMenuButton');
+        const closeMenuButton = document.getElementById('closeMenuButton');
+        const procedureToggle = document.getElementById('procedureToggle');
+        const procMenu = document.getElementById('procMenu');
+        const floatActions = document.getElementById('floatActions');
+        const footer = document.getElementById('rodape');
+
+        function setMenuState(isOpen) {
+            menuOverlay.classList.toggle('active', isOpen);
+            menuBackdrop.classList.toggle('active', isOpen);
+            document.body.classList.toggle('menu-open', isOpen);
+            openMenuButton.setAttribute('aria-expanded', String(isOpen));
+            menuOverlay.setAttribute('aria-hidden', String(!isOpen));
+            menuBackdrop.setAttribute('aria-hidden', String(!isOpen));
+
+            if (isOpen) {
+                closeMenuButton.focus();
+            } else {
+                openMenuButton.focus();
+            }
+        }
+
+        function toggleProcedures() {
+            const isOpen = procMenu.classList.toggle('open');
+            procedureToggle.setAttribute('aria-expanded', String(isOpen));
+        }
+
+        openMenuButton.addEventListener('click', function () {
+            setMenuState(true);
+        });
+
+        closeMenuButton.addEventListener('click', function () {
+            setMenuState(false);
+        });
+
+        menuBackdrop.addEventListener('click', function () {
+            setMenuState(false);
+        });
+
+        procedureToggle.addEventListener('click', toggleProcedures);
+
+        menuOverlay.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                setMenuState(false);
+            });
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && menuOverlay.classList.contains('active')) {
+                setMenuState(false);
+            }
+        });
+
+        /* CONTROLE DOS CARROSSÉIS */
+        const carouselStates = new Map();
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function pauseCarousel(carousel, duration = 5000) {
+            const state = carouselStates.get(carousel);
+
+            if (state) {
+                state.pauseUntil = Math.max(state.pauseUntil, performance.now() + duration);
+            }
+        }
+
+        function normalizeInfiniteCarousel(carousel, state) {
+            const setWidth = carousel.scrollWidth / 3;
+
+            if (!setWidth) {
+                return;
+            }
+
+            if (carousel.scrollLeft >= setWidth * 2) {
+                carousel.scrollLeft -= setWidth;
+            } else if (carousel.scrollLeft <= 1) {
+                carousel.scrollLeft += setWidth;
+            }
+        }
+
+        document.querySelectorAll('.auto-carousel[data-auto-direction]').forEach(function (carousel) {
+            const track = carousel.querySelector('.auto-track');
+            const originalItems = Array.from(track.children);
+
+            originalItems.forEach(function (item) {
+                const clone = item.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                track.appendChild(clone);
+            });
+
+            originalItems.forEach(function (item) {
+                const clone = item.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                track.appendChild(clone);
+            });
+
+            const state = {
+                direction: Number(carousel.dataset.autoDirection) || 1,
+                pauseUntil: 0,
+                hovering: false,
+                dragging: false,
+                startX: 0,
+                startScrollLeft: 0,
+                lastTime: performance.now()
+            };
+
+            carouselStates.set(carousel, state);
+
+            requestAnimationFrame(function () {
+                carousel.scrollLeft = carousel.scrollWidth / 3;
+            });
+
+            carousel.addEventListener('mouseenter', function () {
+                state.hovering = true;
+            });
+
+            carousel.addEventListener('mouseleave', function () {
+                state.hovering = false;
+                state.dragging = false;
+                carousel.classList.remove('dragging');
+                pauseCarousel(carousel, 1200);
+            });
+
+            carousel.addEventListener('pointerdown', function (event) {
+                pauseCarousel(carousel);
+
+                if (event.pointerType === 'mouse') {
+                    state.dragging = true;
+                    state.startX = event.clientX;
+                    state.startScrollLeft = carousel.scrollLeft;
+                    carousel.classList.add('dragging');
+                    carousel.setPointerCapture(event.pointerId);
+                }
+            });
+
+            carousel.addEventListener('pointermove', function (event) {
+                if (!state.dragging) {
+                    return;
+                }
+
+                event.preventDefault();
+                const distance = event.clientX - state.startX;
+                carousel.scrollLeft = state.startScrollLeft - distance;
+                normalizeInfiniteCarousel(carousel, state);
+            });
+
+            function finishDrag(event) {
+                if (!state.dragging) {
+                    return;
+                }
+
+                state.dragging = false;
+                carousel.classList.remove('dragging');
+                pauseCarousel(carousel);
+
+                if (event.pointerId !== undefined && carousel.hasPointerCapture(event.pointerId)) {
+                    carousel.releasePointerCapture(event.pointerId);
+                }
+            }
+
+            carousel.addEventListener('pointerup', finishDrag);
+            carousel.addEventListener('pointercancel', finishDrag);
+            carousel.addEventListener('touchstart', function () {
+                pauseCarousel(carousel);
+            }, { passive: true });
+            carousel.addEventListener('wheel', function () {
+                pauseCarousel(carousel);
+            }, { passive: true });
+            carousel.addEventListener('focusin', function () {
+                pauseCarousel(carousel);
+            });
+        });
+
+        function animateCarousels(timestamp) {
+            carouselStates.forEach(function (state, carousel) {
+                const elapsed = Math.min(timestamp - state.lastTime, 40);
+                state.lastTime = timestamp;
+
+                if (!reduceMotion && !document.hidden && !state.hovering && !state.dragging && timestamp > state.pauseUntil) {
+                    carousel.scrollLeft += state.direction * elapsed * 0.022;
+                }
+
+                normalizeInfiniteCarousel(carousel, state);
+            });
+
+            requestAnimationFrame(animateCarousels);
+        }
+
+        requestAnimationFrame(animateCarousels);
+
+        function updateManualArrows(carousel) {
+            if (carouselStates.has(carousel)) {
+                return;
+            }
+
+            const shell = carousel.closest('.carousel-shell');
+            const leftArrow = shell.querySelector('.carousel-arrow.left');
+            const rightArrow = shell.querySelector('.carousel-arrow.right');
+            const atStart = carousel.scrollLeft <= 2;
+            const atEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 2;
+
+            leftArrow.disabled = atStart;
+            rightArrow.disabled = atEnd;
+        }
+
+        document.querySelectorAll('.carousel-arrow').forEach(function (arrow) {
+            arrow.addEventListener('click', function () {
+                const carousel = document.getElementById(arrow.dataset.carousel);
+                const direction = Number(arrow.dataset.direction);
+                const distance = Math.max(220, carousel.clientWidth * 0.78);
+
+                pauseCarousel(carousel);
+                carousel.scrollBy({
+                    left: direction * distance,
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function () {
+                    updateManualArrows(carousel);
+                }, 450);
+            });
+        });
+
+        document.querySelectorAll('.spa-hybrid-container, .avaliacoes-grid').forEach(function (carousel) {
+            updateManualArrows(carousel);
+            carousel.addEventListener('scroll', function () {
+                updateManualArrows(carousel);
+            }, { passive: true });
+        });
+
+        document.querySelectorAll('.auto-carousel, .spa-hybrid-container, .avaliacoes-grid').forEach(function (carousel) {
+            carousel.addEventListener('keydown', function (event) {
+                if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+                    return;
+                }
+
+                event.preventDefault();
+                const direction = event.key === 'ArrowLeft' ? -1 : 1;
+                const arrow = carousel.closest('.carousel-shell').querySelector('.carousel-arrow.' + (direction < 0 ? 'left' : 'right'));
+
+                if (!arrow.disabled) {
+                    arrow.click();
+                }
+            });
+        });
+
+        window.addEventListener('resize', function () {
+            document.querySelectorAll('.spa-hybrid-container, .avaliacoes-grid').forEach(updateManualArrows);
+        });
+
+        function updateFloatingButtons() {
+            floatActions.classList.toggle('compact', window.scrollY > 120);
+        }
+
+        updateFloatingButtons();
+        window.addEventListener('scroll', updateFloatingButtons, { passive: true });
+
+        if ('IntersectionObserver' in window) {
+            const footerObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    floatActions.classList.toggle('footer-visible', entry.isIntersecting);
+                });
+            }, { threshold: 0.08 });
+
+            footerObserver.observe(footer);
+        }
+    </script>
+</body>
+</html>
