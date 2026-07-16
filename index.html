@@ -1191,11 +1191,10 @@
 
             <div class="mapa-wrapper">
                 <iframe
-                    src="https://www.google.com/maps?q=Rua%20Campos%20Sales%2C%20200%2C%20Vila%20Bocaina%2C%20Mau%C3%A1%2C%20SP%2C%2009310-040&amp;output=embed"
+                    src="https://maps.google.com/maps?hl=pt-BR&amp;q=Rua%20Campos%20Sales%2C%20200%20-%20Vila%20Bocaina%2C%20Mau%C3%A1%20-%20SP%2C%2009310-040&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                     title="Mapa da ANAKÁ Concept na Rua Campos Sales, 200, em Mauá"
                     loading="lazy"
-                    allowfullscreen
-                    referrerpolicy="no-referrer-when-downgrade">
+                    allowfullscreen>
                 </iframe>
             </div>
 
@@ -1463,6 +1462,38 @@
         window.addEventListener('resize', function () {
             document.querySelectorAll('.spa-hybrid-container, .avaliacoes-grid').forEach(updateManualArrows);
         });
+
+        /* PAUSA O VÍDEO QUANDO ELE SAI DA TELA */
+        const essenceVideo = document.querySelector('.video-wrapper video');
+
+        if (essenceVideo) {
+            if ('IntersectionObserver' in window) {
+                const videoObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting || entry.intersectionRatio < 0.1) {
+                            essenceVideo.pause();
+                        }
+                    });
+                }, { threshold: [0, 0.1] });
+
+                videoObserver.observe(essenceVideo);
+            } else {
+                window.addEventListener('scroll', function () {
+                    const videoPosition = essenceVideo.getBoundingClientRect();
+                    const isVisible = videoPosition.bottom > 0 && videoPosition.top < window.innerHeight;
+
+                    if (!isVisible) {
+                        essenceVideo.pause();
+                    }
+                }, { passive: true });
+            }
+
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden) {
+                    essenceVideo.pause();
+                }
+            });
+        }
 
         function updateFloatingButtons() {
             floatActions.classList.toggle('compact', window.scrollY > 120);
