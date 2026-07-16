@@ -284,13 +284,11 @@
 
         .hero-watermark {
             position: absolute;
-            top: 52%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: min(900px, 105vw);
-            height: min(560px, 70vh);
+            inset: 0;
+            width: 100%;
+            height: 100%;
             background: url('estética.png') no-repeat center;
-            background-size: contain;
+            background-size: cover;
             opacity: 0.055;
             z-index: -1;
             pointer-events: none;
@@ -850,9 +848,8 @@
             }
 
             .hero-watermark {
-                width: 118vw;
-                height: 440px;
                 opacity: 0.045;
+                background-position: center center;
             }
 
             .hero-logo {
